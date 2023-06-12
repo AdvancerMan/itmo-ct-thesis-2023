@@ -30,12 +30,14 @@ class Pesa2Algorithm<I : Individual<I>>(
     private val stopConditionState: StopConditionState,
 
     private val statisticsCollector: StatisticsCollector<I>,
+
+    biSections: Int,
 ) : Algorithm<I>, PESA2<JmetalMultidimensionalIndividual<I>>(
     JmetalMultidimensionalProblem(individualGenerator, fitnessDimension, problemName),
     Int.MAX_VALUE,
     populationSize,
     populationSize,
-    5,
+    biSections,
     NullCrossover(),
     JmetalMutationOperator(mutationOperator),
     NullEvaluator(),

@@ -8,7 +8,7 @@ import ru.itmo.kazakov.autoschedule.algorithm.integration.StatisticsCollector
 import ru.itmo.kazakov.autoschedule.algorithm.integration.StopConditionState
 import ru.itmo.kazakov.autoschedule.algorithm.operator.MutationOperator
 import ru.itmo.kazakov.autoschedule.algorithm.operator.NextPopulationSelectionBatcher
-import ru.itmo.kazakov.autoschedule.nsp.aggregator.MultiplicationNspFitnessAggregator
+import ru.itmo.kazakov.autoschedule.nsp.aggregator.NspFitnessAggregator
 import ru.itmo.kazakov.autoschedule.nsp.generator.individual.IndividualGenerator
 import ru.itmo.kazakov.autoschedule.nsp.model.ScheduleIndividual
 
@@ -20,8 +20,6 @@ class MuPlusLambdaAlgorithm<ID>(
 
     individualGenerator: IndividualGenerator<ScheduleIndividual<ID>>,
 
-    fitnessDimension: Int,
-
     problemName: String,
 
     private val populationSize: Int,
@@ -29,8 +27,10 @@ class MuPlusLambdaAlgorithm<ID>(
     private val stopConditionState: StopConditionState,
 
     private val statisticsCollector: StatisticsCollector<ScheduleIndividual<ID>>,
+
+    fitnessAggregator: NspFitnessAggregator,
 ) : Algorithm<ScheduleIndividual<ID>>, ElitistEvolutionStrategy<JmetalOnedimensionalScheduleIndividual<ID>>(
-    JmetalOnedimensionalScheduleProblem(individualGenerator, problemName, MultiplicationNspFitnessAggregator()),
+    JmetalOnedimensionalScheduleProblem(individualGenerator, problemName, fitnessAggregator),
     populationSize,
     populationSize,
     Int.MAX_VALUE,
@@ -43,7 +43,7 @@ class MuPlusLambdaAlgorithm<ID>(
         .let { it.get(this) as Comparator<JmetalOnedimensionalScheduleIndividual<ID>> }
 
     init {
-        problem = JmetalOnedimensionalScheduleProblem(individualGenerator, problemName, MultiplicationNspFitnessAggregator())
+        problem = JmetalOnedimensionalScheduleProblem(individualGenerator, problemName, fitnessAggregator)
     }
 
     override fun solve(): List<ScheduleIndividual<ID>> {

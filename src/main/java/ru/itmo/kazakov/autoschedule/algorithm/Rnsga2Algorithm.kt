@@ -32,6 +32,8 @@ class Rnsga2Algorithm<I : Individual<I>>(
     private val stopConditionState: StopConditionState,
 
     private val statisticsCollector: StatisticsCollector<I>,
+
+    fitnessEpsilon: Double,
 ) : Algorithm<I>, RNSGAII<JmetalMultidimensionalIndividual<I>>(
     JmetalMultidimensionalProblem(individualGenerator, fitnessDimension, problemName),
     Int.MAX_VALUE,
@@ -43,7 +45,7 @@ class Rnsga2Algorithm<I : Individual<I>>(
     BinaryTournamentSelection(RankingAndCrowdingDistanceComparator()),
     NullEvaluator(),
     List(fitnessDimension) { 0.0 },
-    1e-6,
+    fitnessEpsilon,
 ) {
 
     override fun solve(): List<I> {

@@ -13,14 +13,11 @@ import ru.itmo.kazakov.autoschedule.algorithm.integration.JmetalMutationOperator
 import ru.itmo.kazakov.autoschedule.algorithm.integration.StatisticsCollector
 import ru.itmo.kazakov.autoschedule.algorithm.integration.StopConditionState
 import ru.itmo.kazakov.autoschedule.algorithm.operator.MutationOperator
-import ru.itmo.kazakov.autoschedule.algorithm.operator.NextPopulationSelectionBatcher
 import ru.itmo.kazakov.autoschedule.nsp.generator.individual.IndividualGenerator
 
 class EspeaWithoutModificationAlgorithm<I : Individual<I>>(
 
     mutationOperator: MutationOperator<I>,
-
-    private val nextPopulationSelectionBatcher: NextPopulationSelectionBatcher<I>,
 
     individualGenerator: IndividualGenerator<I>,
 

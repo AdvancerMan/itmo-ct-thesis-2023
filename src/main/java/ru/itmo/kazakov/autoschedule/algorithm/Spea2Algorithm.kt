@@ -39,7 +39,7 @@ class Spea2Algorithm<I : Individual<I>>(
     JmetalMutationOperator(mutationOperator),
     BinaryTournamentSelection(),
     NullEvaluator(),
-    2,
+    2, // unused in library implementation
 ) {
 
     override fun solve(): List<I> {
